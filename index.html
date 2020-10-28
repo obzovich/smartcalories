@@ -1,0 +1,358 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Меняющиеся баннеры для главной Smartcalories</title>
+<link href="https://fonts.googleapis.com/css?family=PT+Serif:400,400i,700,700i" rel="stylesheet"> 
+ 
+<style type="text/css">
+div#rotator {position:relative; height:150px; margin-left: 15px;}
+div#rotator ul li {float:left; position:absolute; list-style: none;}
+div#rotator ul li.show {z-index:500;}
+* {
+	font-family: 'PT Serif', serif;
+}
+.banners-area {
+	margin-bottom: 100px;
+}
+.banner__content {
+	background-color: #ffc548;
+}
+.banner {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	width: 1190px;
+	height: 512px;
+	margin: 0 auto;
+}
+.banner__images {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	-webkit-flex-direction: column;
+	-moz-flex-direction: column;
+	-ms-flex-direction: column;
+	-o-flex-direction: column;
+	flex-direction: column;
+	align-items: flex-end;
+	margin-right: 15px;
+}
+.banner__img__bottom {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	margin-top: 7px;
+}
+.banner__img__bottom .banner__img:last-child {
+	margin-left: 10px;
+}
+.banner__content {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	-webkit-flex-direction: column;
+	-moz-flex-direction: column;
+	-ms-flex-direction: column;
+	-o-flex-direction: column;
+	flex-direction: column;
+	-ms-align-items: space-between;
+	justify-content: space-between;
+	width: 742px;
+}
+.middle_content {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	justify-content: space-between;
+	-ms-align-items: center;
+	align-items: center;
+}
+.day {
+	background-color: #f4f4f4;
+	padding: 15px 40px;
+	margin-left: 110px;
+	height: 155px;
+	width: 350px;
+	font-size: 14px;
+}
+.day h2 {
+	font-size: 32px;
+	padding: 0;
+	margin: 0;
+}
+.day p {
+	padding: 0;
+	margin: 0;
+	margin-top: 15px;
+}
+.day p:last-child {
+	margin-top: 20px;
+}
+.welcome, .phone {
+	width: 440px;
+	-ms-align-self: center;
+	align-self: center;
+	text-align: center;
+}
+.welcome {
+	margin-top: 35px;
+	font-size: 20px;
+	font-style: italic;
+}
+.phone {
+	margin-bottom: 35px;
+	font-size: 15px;
+}
+.menu {
+	width: 210px;
+	margin-left: 95px;
+	font-size: 15px;
+}
+.menu ul {
+	padding: 0;
+	margin-left: 0;
+	line-height: 1.6;
+	color: #fff;
+}
+.menu ul li span {
+	color: #000;
+	font-weight: normal;
+}
+.menu h2 {
+	color: #fff;
+	font-size: 45px;
+	font-weight: 300;
+	padding: 0;
+	margin: 0;
+}
+span {
+	font-weight: bold;
+}
+#pic1 {
+	margin-top: 10px;
+}
+.banner_lite .banner__content {
+	background-color: #fff;
+/*	border: 1px solid #000;*/
+	height: 500px;
+	font-size: 15px;
+}
+.banner_lite .banner__content h2 {
+	background-color: #ffc548;
+	font-size: 35px;
+	padding: 20px;
+	margin-top: 40px;
+	margin-bottom: 20px;
+}
+.banner_lite .banner__content p {
+	padding-right: 50px;
+	margin: 0;	
+	line-height: 1.6;
+}
+.banner_lite .banner__content a {
+	color: #000;
+	font-weight: bold;
+	}
+.banner_lite .banner__content ul {
+	padding-left: 16px;
+	color: #f7a900;
+	line-height: 1.6;
+}
+.banner_lite .banner__content ul span {
+	color: #000;
+	font-weight: normal;
+}
+#price_ul {
+	color: #f7a900;
+	font-weight: bold;
+}
+.banner_lite .banner__images {
+	margin-right: 0;
+}
+.footnote {
+	margin-bottom: 65px;
+}
+</style>
+ 
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript">
+
+function theRotator() {
+	// Устанавливаем прозрачность всех картинок в 0
+	$('div#rotator ul li').css({opacity: 0.0});
+ 
+	// Берем первую картинку и показываем ее (по пути включаем полную видимость)
+	$('div#rotator ul li:first').css({opacity: 1.0});
+ 
+	// Вызываем функцию rotate для запуска слайдшоу, 5000 = смена картинок происходит раз в 5 секунд
+	setInterval('rotate()',5000);
+}
+ 
+function rotate() {	
+	// Берем первую картинку
+	var current = ($('div#rotator ul li.show')?  $('div#rotator ul li.show') : $('div#rotator ul li:first'));
+ 
+	// Берем следующую картинку, когда дойдем до последней начинаем с начала
+	var next = ((current.next().length) ? ((current.next().hasClass('show')) ? $('div#rotator ul li:first') :current.next()) : $('div#rotator ul li:first'));	
+ 
+	// Расскомментируйте, чтобы показвать картинки в случайном порядке
+	// var sibs = current.siblings();
+	// var rndNum = Math.floor(Math.random() * sibs.length );
+	// var next = $( sibs[ rndNum ] );
+ 
+	// Подключаем эффект растворения/затухания для показа картинок, css-класс show имеет больший z-index
+	next.css({opacity: 0.0})
+	.addClass('show')
+	.animate({opacity: 1.0}, 1000);
+ 
+	// Прячем текущую картинку
+	current.animate({opacity: 0.0}, 1000)
+	.removeClass('show');
+};
+ 
+$(document).ready(function() {		
+	// Запускаем слайдшоу
+	theRotator();
+});
+ 
+</script>
+ 
+</head>
+<body>
+ 
+<div id="rotator">
+    <ul>
+        <li class="show">
+            <div class="banners-area">
+                <div class="banner">
+                    <div class="banner__images">
+                        <div class="banner__img"><img src="img/photo1_1.jpg" alt="pic1" /></div>
+                        <div class="banner__img" id="pic1"><img src="img/photo1_2.jpg" alt="pic2" /></div>
+                    </div>
+                    <div class="banner__content">
+                        <div class="welcome">
+                            Приглашаем принять участие в <span>мастер-классе</span> по приготовлению вкусной и полезной еды от <span>Smart Calories</span>!
+                        </div>
+                        <div class="middle_content">
+                            <div class="menu">
+                                <h2>Меню</h2>
+                                <ul>
+                                    <li><span><b>Пряная говядина</b> с овощами в мешочке из теста фило</span></li>
+                                    <li><span><b>Вальдорф</b> с инжиром</span></li>
+                                    <li><span><b>Творожные шарики</b> с гранолой</span></li>
+                                    <li><span>Глинтвейн</span></li>
+                                </ul>
+                            </div>
+                            <div class="day">
+                                <h2>26 октября 18:00</h2>
+                                <p>Москва, Волоколамское шоссе, 112к3</p>
+                                <span>Продолжительность: 3 часа</span>
+                                <p>3000 руб.</p>
+                            </div>
+                        </div>
+                        <div class="phone">Запись и информация о скидках по телефону:<br> <span>+7 (966) 004-07-70</span></div>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="banners-area">
+                <div class="banner">
+                    <div class="banner__images">
+                        <div class="banner__img"><img src="img/photo2_1.jpg" alt="pic1" /></div>
+                        <div class="banner__img__bottom">
+                            <div class="banner__img"><img src="img/photo2_3.jpg" alt="pic3" /></div>
+                            <div class="banner__img"><img src="img/photo2_2.jpg" alt="pic2" /></div>
+                        </div>
+                    </div>
+                    <div class="banner__content">
+                        <div class="welcome">
+                            Приглашаем принять участие в <span>мастер-классе</span> по приготовлению вкусной и полезной еды от <span>Smart Calories</span>!
+                        </div>
+                        <div class="middle_content">
+                            <div class="menu">
+                                <h2>Меню</h2>
+                                <ul>
+                                    <li><span><b>Креветки</b> с кускусом</span></li>
+                                    <li><span><b>Салат</b> из 3-х видов томатов</span></li>
+                                    <li><span><b>Конфеты</b></span></li>
+                                    <li><span><b>Лимонад</b></span></li>
+                                </ul>
+                            </div>
+                            <div class="day">
+                                <h2>16 ноября 18:00</h2>
+                                <p>Москва, Волоколамское шоссе, 112к3</p>
+                                <span>Продолжительность: 3 часа</span>
+                                <p>3000 руб.</p>
+                            </div>
+                        </div>
+                        <div class="phone">Запись и информация о скидках по телефону:<br> <span>+7 (966) 004-07-70</span></div>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="banners-area">
+                <div class="banner">
+                    <div class="banner__images">
+                        <div class="banner__img"><img src="img/photo3_1.jpg" alt="pic1" /></div>
+                    </div>
+                    <div class="banner__content">
+                        <div class="welcome">
+                            Приглашаем принять участие в <span>мастер-классе</span> по приготовлению вкусной и полезной еды от <span>Smart Calories</span>!
+                        </div>
+                        <div class="middle_content">
+                            <div class="menu">
+                                <h2>Меню</h2>
+                                <ul>
+                                    <li><span><b>Хачапури</b> из теста фило</span></li>
+                                    <li><span><b>Тартар из тыквы</b> с авокадо, кешью и креветками</span></li>
+                                    <li><span><b>Пудинг с семенами чиа</b> и хурмой</span></li>
+                                    <li><span><b>Напиток из лимона</b>, апельсина и имбиря</span></li>
+                                </ul>
+                            </div>
+                            <div class="day">
+                                <h2>30 ноября 18:00</h2>
+                                <p>Москва, Волоколамское шоссе, 112к3</p>
+                                <span>Продолжительность: 3 часа</span>
+                                <p>3000 руб.</p>
+                            </div>
+                        </div>
+                        <div class="phone">Запись и информация о скидках по телефону:<br> <span>+7 (966) 004-07-70</span></div>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="banner banner_lite">
+                <div class="banner__images">
+                    <div class="banner__img"><img src="img/banner_lite.jpg" alt="pic1" /></div>
+                </div>
+                <div class="banner__content">
+                    <h2>Smart Calories за 1500 руб./день! *</h2>
+                    <p>Предлагаем вам облегченную версию нашего меню по программам <b>Lite</b>!<br>
+                    Готовят те же повара на том же профессиональном оборудовании с одним лишь отличием: в блюдах из рыбы, птицы и мяса используются <b>форель, судак, треска, перепёлка, нежирное мясо индейки и курицы, а также рубленая говядина</b>. Всё остальное останется без изменений, включая свежие овощи и фрукты, гарниры, блюда из творога, выпечку, конфетки, а также домашний йогурт.</p>
+                    <ul>
+                        <li><a href="">Smart Flash Lite</a> <span>1200-1400 ккал -</span><span id="price_ul"> 1500 руб.</span></li>
+                        <li><a href="">Smart Shape Lite</a> <span>1500-1700 ккал -</span><span id="price_ul"> 1700 руб.</span></li>
+                        <li><a href="">Smart Lifestyle Lite</a> <span>1800-2200 ккал -</span><span id="price_ul"> 2000 руб.</span></li>
+                    </ul>
+                    <div class="footnote">* Подробности уточняйте у наших менеджеров</div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+</body>
+</html>
